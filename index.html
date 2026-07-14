@@ -45,6 +45,9 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);min
 .card-body{flex:1;min-width:0}
 .card-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.45}
 .card-meta{font-size:12px;color:var(--text-sub);margin-bottom:2px;display:flex;align-items:flex-start;gap:4px}
+.card-subs{margin-top:7px;padding-top:7px;border-top:1px dashed var(--border)}
+.card-sub-item{font-size:12px;color:var(--text-sub);padding:2px 0 2px 14px;position:relative;line-height:1.5}
+.card-sub-item::before{content:"•";position:absolute;left:3px;color:var(--green-mid)}
 .admin-toggle-btn{position:fixed;bottom:22px;right:22px;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:11px 18px;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 4px 18px rgba(26,71,49,.3);display:flex;align-items:center;gap:7px;z-index:100;transition:background .15s}
 .admin-toggle-btn:hover{background:var(--green)}
 .admin-overlay{display:none;position:fixed;inset:0;background:rgba(26,71,49,.45);z-index:200;align-items:center;justify-content:center;padding:1rem}
@@ -182,7 +185,7 @@ jul:[
 {name:"สักการะพระยาพิชัย ไหว้สาพระแท่นศิลาอาสน์",date:"25 ก.ค. 69",place:"วัดพระแท่นศิลาอาสน์",owner:"กองพัฒนานักศึกษา"}
 ],
 aug:[
-{name:"กิจกรรมวันคล้ายวันสถาปนามหาวิทยาลัย",date:"1 ส.ค. 69",place:"หอประชุม มรอ.",owner:"มหาวิทยาลัย"},
+{name:"กิจกรรมวันคล้ายวันสถาปนามหาวิทยาลัย",date:"1 ส.ค. 69",place:"หอประชุมมหาวิทยาลัยราชภัฏอุตรดิตถ์",owner:"มหาวิทยาลัย",subs:["พิธีเชิดชูเกียรติ \"เพชรราชภัฏ: 90 ปีแห่งความภาคภูมิใจ\"","พิธีมอบเหรียญเชิดชูเกียรติผู้ปฏิบัติงานครบ 15 ปี เนื่องในโอกาสครบรอบ 90 ปี มหาวิทยาลัยราชภัฏอุตรดิตถ์","พิธีมอบรางวัลนักวิจัยดีเด่น \"90 ปี มรอ. วิจัยสร้างปัญญา พัฒนาท้องถิ่น\"","พิธีทอดผ้าป่าสามัคคีมหากุศล 90 ปี มหาวิทยาลัยราชภัฏอุตรดิตถ์ (ชั้น 1 อาคารภูมิราชภัฏ)"]},
 {name:"นิทรรศการศิลปกรรม 90 ปี มรอ.",date:"1 ส.ค. 69",place:"หอศิลป์ฯ",owner:"คณะมนุษยศาสตร์ฯ"},
 {name:"90 ปี มรอ. เปิดตลาดวิศวกรสังคม",date:"1 ส.ค. 69",place:"ประตู 5 ถนนหน้าศูนย์วิทย์ฯ",owner:"กองพัฒนานักศึกษา"},
 {name:"รับสมัครนักศึกษา ปีการศึกษา 2570",date:"1 ส.ค. 69 – 15 ต.ค. 69",place:"ออนไลน์",owner:"กองบริการการศึกษา"},
@@ -213,7 +216,7 @@ function rm(m){
   const items=D[m];
   el.innerHTML='<div class="month-header"><span class="month-title">'+t[m]+'</span><span class="month-count">'+items.length+' กิจกรรม</span></div>'+
   (items.length===0?'<p style="color:#8aa594;font-size:14px;padding:1rem 0">ยังไม่มีกิจกรรมในเดือนนี้</p>':
-  items.map((a,i)=>'<div class="card"><div class="card-date">'+a.date+'</div><div class="card-body"><div class="card-name">'+a.name+'</div><div class="card-meta">'+iPin+' '+a.place+'</div><div class="card-meta">'+iUser+' '+a.owner+'</div></div>'+(unlocked?'<button class="del-btn" onclick="del(\''+m+'\','+i+')" title="ลบ">×</button>':'')+'</div>').join(''));
+  items.map((a,i)=>'<div class="card"><div class="card-date">'+a.date+'</div><div class="card-body"><div class="card-name">'+a.name+'</div><div class="card-meta">'+iPin+' '+a.place+'</div><div class="card-meta">'+iUser+' '+a.owner+'</div>'+(a.subs?'<div class="card-subs">'+a.subs.map(s=>'<div class="card-sub-item">'+s+'</div>').join('')+'</div>':'')+'</div>'+(unlocked?'<button class="del-btn" onclick="del(\''+m+'\','+i+')" title="ลบ">×</button>':'')+'</div>').join(''));
 }
 function us(){document.getElementById('sJ').textContent=D.jul.length;document.getElementById('sA').textContent=D.aug.length;document.getElementById('sS').textContent=D.sep.length;document.getElementById('sAll').textContent=D.jul.length+D.aug.length+D.sep.length;}
 function ra(){['jul','aug','sep'].forEach(rm);us();}
